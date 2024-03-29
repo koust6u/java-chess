@@ -10,10 +10,6 @@ import chessgame.view.ChessCommand;
 import chessgame.view.OutputView;
 
 public class ChessGame {
-
-    private final Map<ChessCommand, Consumer<ChessBoard>> commandPerformances
-            = Map.of(START, ChessBoard::reset, MOVE, chessBoard -> chessBoard.move(askRoute()));
-
     public void start() {
         var chessBoard = new ChessBoard();
         var chessCommand = ChessCommand.PENDING;

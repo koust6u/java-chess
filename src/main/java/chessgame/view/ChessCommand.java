@@ -1,6 +1,13 @@
 package chessgame.view;
 
+import static chessgame.domain.ChessGame.askRoute;
+import static chessgame.view.ChessCommand.MOVE;
+import static chessgame.view.ChessCommand.START;
+
+import chessgame.domain.ChessBoard;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public enum ChessCommand {
     PENDING(""),
@@ -9,6 +16,9 @@ public enum ChessCommand {
     MOVE("move");
 
     private final String commandText;
+
+    public static final Map<ChessCommand, Consumer<ChessBoard>> commandPerformances
+            = Map.of(START, ChessBoard::reset, MOVE, chessBoard -> chessBoard.move(askRoute()));
 
     ChessCommand(final String commandText) {
         this.commandText = commandText;
