@@ -19,7 +19,7 @@ public abstract class JumpingPiece extends Piece {
         return getMovableDirection().stream()
                 .filter(direction -> super.point.canMove(direction))
                 .map(direction -> super.point.move(direction))
-                .filter(point -> !pieces.isFriend(this, point))
+                .filter(point -> !pieces.isTeam(this, point))
                 .collect(Collectors.toSet());
     }
 

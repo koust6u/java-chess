@@ -56,7 +56,7 @@ public abstract class SlidingPiece extends Piece {
 
     private Set<Point> removeSameTeam(final Pieces pieces, final HashSet<Point> legalMovePoints) {
         return legalMovePoints.stream()
-                .filter(point -> !pieces.isFriend(this, point))
+                .filter(point -> !pieces.isTeam(this, point))
                 .collect(Collectors.toSet());
     }
 }

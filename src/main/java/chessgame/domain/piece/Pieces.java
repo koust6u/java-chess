@@ -37,7 +37,7 @@ public class Pieces {
                 .findAny();
     }
 
-    public boolean isFriend(final Piece piece, final Point point) {
+    public boolean isTeam(final Piece piece, final Point point) {
         final var optionalPiece = findPieceWithPoint(point);
         return optionalPiece.filter(piece::isSameColor).isPresent();
     }

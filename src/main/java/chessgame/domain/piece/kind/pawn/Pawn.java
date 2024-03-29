@@ -27,7 +27,7 @@ public abstract class Pawn extends Piece {
         return getMovableDirection(pieces).stream()
                 .filter(direction -> super.point.canMove(direction))
                 .map(direction -> super.point.move(direction))
-                .filter(point -> !pieces.isFriend(this, point))
+                .filter(point -> !pieces.isTeam(this, point))
                 .collect(Collectors.toSet());
 
     }
