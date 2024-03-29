@@ -1,16 +1,15 @@
-package chessgame.controller;
+package chessgame.domain;
 
 import static chessgame.view.ChessCommand.*;
 
 import chessgame.dto.RouteDto;
 import chessgame.view.InputView;
-import chessgame.domain.ChessBoard;
 import java.util.Map;
 import java.util.function.Consumer;
 import chessgame.view.ChessCommand;
 import chessgame.view.OutputView;
 
-public class ChessController {
+public class ChessGame {
 
     private final Map<ChessCommand, Consumer<ChessBoard>> commandPerformances
             = Map.of(START, ChessBoard::reset, MOVE, chessBoard -> chessBoard.move(askRoute()));
