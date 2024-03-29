@@ -4,8 +4,6 @@ import static chessgame.view.ChessCommand.*;
 
 import chessgame.dto.RouteDto;
 import chessgame.view.InputView;
-import java.util.Map;
-import java.util.function.Consumer;
 import chessgame.view.ChessCommand;
 import chessgame.view.OutputView;
 

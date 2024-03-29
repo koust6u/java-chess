@@ -3,7 +3,10 @@ package chessgame.domain.piece;
 import chessgame.domain.piece.attribute.point.Point;
 import chessgame.dto.PiecesDto;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 public class Pieces {
     private final Set<Piece> values;

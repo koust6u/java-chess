@@ -1,8 +1,5 @@
 package chessgame.domain.piece.attribute.point;
 
-import chessgame.domain.piece.attribute.point.File;
-import chessgame.domain.piece.attribute.point.Point;
-import chessgame.domain.piece.attribute.point.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

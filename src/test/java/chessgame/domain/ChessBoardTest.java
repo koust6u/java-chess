@@ -20,6 +20,7 @@ import java.util.stream.IntStream;
 import static chessgame.domain.piece.kind.PieceStatus.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 class ChessBoardTest {
     @Test
     @DisplayName("기물들을 통해 체스판을 생성한다")

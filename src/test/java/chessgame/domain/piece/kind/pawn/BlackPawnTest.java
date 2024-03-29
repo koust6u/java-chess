@@ -1,13 +1,12 @@
 package chessgame.domain.piece.kind.pawn;
 
-import static chessgame.domain.piece.attribute.point.File.*;
-import static chessgame.domain.piece.attribute.point.Rank.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import chessgame.domain.piece.Pieces;
 import chessgame.domain.piece.attribute.Color;
+import chessgame.domain.piece.attribute.point.File;
 import chessgame.domain.piece.attribute.point.Point;
-import chessgame.domain.piece.kind.pawn.Pawn;
+import chessgame.domain.piece.attribute.point.Rank;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,12 +28,12 @@ class BlackPawnTest {
     @Test
     @DisplayName("폰은 초기 위치일 경우 최대 두칸 이동이 가능하다")
     void could_move_double_step_when_never_moved() {
-        final var sut = Pawn.from(new Point(C, SEVEN), Color.BLACK);
+        final var sut = Pawn.from(new Point(File.C, Rank.SEVEN), Color.BLACK);
 
         Set<Point> legalMovePoints = sut.findLegalMovePoints(new Pieces(Set.of(sut)));
         assertThat(legalMovePoints).containsExactlyInAnyOrder(
-                new Point(C, SIX),
-                new Point(C, FIVE)
+                new Point(File.C, Rank.SIX),
+                new Point(File.C, Rank.FIVE)
         );
     }
 
@@ -53,8 +52,8 @@ class BlackPawnTest {
     @Test
     @DisplayName("앞이 막혀 있으면 전진이 불가능하다.")
     void can_not_move_to_forward_when_it_is_block_by_other_pieces() {
-        final var sut = Pawn.from(new Point(C, SEVEN), Color.BLACK);
-        final var enemy = Pawn.from(new Point(C, SIX), Color.BLACK);
+        final var sut = Pawn.from(new Point(File.C, Rank.SEVEN), Color.BLACK);
+        final var enemy = Pawn.from(new Point(File.C, Rank.SIX), Color.BLACK);
         Set<Point> legalMovePoints = sut.findLegalMovePoints(new Pieces(Set.of(sut, enemy)));
         assertThat(legalMovePoints).isEmpty();
     }
@@ -73,15 +72,15 @@ class BlackPawnTest {
     @Test
     @DisplayName("대각 1칸 거리에 적이 있으면 해당 위치로 이동이 가능하다.")
     void can_move_diagonal_step_when_exist_enemy() {
-        final var sut = Pawn.from(new Point(C, SEVEN), Color.BLACK);
-        final var enemy = Pawn.from(new Point(B, SIX), Color.WHITE);
-        final var enemy2 = Pawn.from(new Point(C, FIVE), Color.WHITE);
-        final var friend = Pawn.from(new Point(D, SIX), Color.BLACK);
+        final var sut = Pawn.from(new Point(File.C, Rank.SEVEN), Color.BLACK);
+        final var enemy = Pawn.from(new Point(File.B, Rank.SIX), Color.WHITE);
+        final var enemy2 = Pawn.from(new Point(File.C, Rank.FIVE), Color.WHITE);
+        final var friend = Pawn.from(new Point(File.D, Rank.SIX), Color.BLACK);
         Set<Point> legalMovePoints = sut.findLegalMovePoints(new Pieces(Set.of(sut, enemy, enemy2, friend)));
 
         assertThat(legalMovePoints).containsExactlyInAnyOrder(
-                new Point(B, SIX),
-                new Point(C, SIX)
+                new Point(File.B, Rank.SIX),
+                new Point(File.C, Rank.SIX)
         );
 
     }

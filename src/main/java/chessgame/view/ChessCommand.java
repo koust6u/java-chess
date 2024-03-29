@@ -1,8 +1,6 @@
 package chessgame.view;
 
 import static chessgame.domain.ChessGame.askRoute;
-import static chessgame.view.ChessCommand.MOVE;
-import static chessgame.view.ChessCommand.START;
 
 import chessgame.domain.ChessBoard;
 import java.util.Arrays;
