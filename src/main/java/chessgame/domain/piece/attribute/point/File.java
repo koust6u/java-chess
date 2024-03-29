@@ -3,18 +3,20 @@ package chessgame.domain.piece.attribute.point;
 import java.util.Arrays;
 
 public enum File {
-    A('a'),
-    B('b'),
-    C('c'),
-    D('d'),
-    E('e'),
-    F('f'),
-    G('g'),
-    H('h');
+    A('a', 0),
+    B('b', 1),
+    C('c', 2),
+    D('d', 3),
+    E('e', 4),
+    F('f', 5),
+    G('g', 6),
+    H('h', 7);
     private final char value;
+    private final int order;
 
-    File(final char value) {
+    File(final char value, final int order) {
         this.value = value;
+        this.order = order;
     }
 
     public static File from(final char value) {
@@ -25,31 +27,31 @@ public enum File {
     }
 
     public boolean isFarLeft() {
-        return ordinal() == 0;
+        return order == 0;
     }
 
     public boolean isFarRight() {
-        return ordinal() == values().length - 1;
+        return order == values().length - 1;
     }
 
     public boolean canMoveLeft(final int step) {
-        return ordinal() - step >= 0;
+        return order - step >= 0;
     }
 
     public boolean canMoveRight(final int step) {
-        return ordinal() + step < values().length;
+        return order + step < values().length;
     }
 
     public File moveLeft(final int step) {
         if (canMoveLeft(step)) {
-            return values()[ordinal() - step];
+            return values()[order - step];
         }
         throw new IllegalStateException("움직일 수 없는 위치입니다.");
     }
 
     public File moveRight(final int step) {
         if (canMoveRight(step)) {
-            return values()[ordinal() + step];
+            return values()[order + step];
         }
         throw new IllegalStateException("움직일 수 없는 위치입니다.");
     }
