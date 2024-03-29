@@ -10,10 +10,10 @@ import chessgame.factory.ChessBoardGenerator;
 
 public class ChessBoard {
     private Pieces pieces;
-    private Color color;
+    private Color turn;
 
     public ChessBoard() {
-        color = Color.WHITE;
+        turn = Color.WHITE;
         this.pieces = new Pieces();
     }
 
@@ -38,12 +38,12 @@ public class ChessBoard {
         validateCorrectTurn(piece);
         validateCanReplace(piece, endPoint, startPoint);
         pieces.replace(piece, endPoint);
-        color = color.getOpposite();
+        turn = turn.getOpposite();
     }
 
     private void validateCorrectTurn(final Piece piece) {
-        if (!piece.isSameColor(color)) {
-            throw new IllegalStateException("현재는 %s의 턴입니다.".formatted(color.name()));
+        if (!piece.isSameColor(turn)) {
+            throw new IllegalStateException("현재는 %s의 턴입니다.".formatted(turn.name()));
         }
     }
 
