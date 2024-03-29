@@ -30,4 +30,12 @@ public enum ChessCommand {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("%s는 없는 명령입니다.", commandText)));
     }
+
+    public boolean isEnd() {
+        return this == END;
+    }
+
+    public boolean isStart() {
+        return this == START;
+    }
 }

@@ -14,14 +14,14 @@ public class ChessGame {
         final var chessBoard = new ChessBoard();
         var chessCommand = ChessCommand.PENDING;
         OutputView.printCommandOptions();
-        while (chessCommand != END) {
+        while (!chessCommand.isEnd()) {
             chessCommand = ExceptionHandler.handleInputWithRetry(() -> proceed(chessBoard));
         }
     }
 
     private ChessCommand proceed(final ChessBoard chessBoard) {
         final var chessCommand = InputView.inputChessCommand();
-        if (chessCommand == END) {
+        if (chessCommand.isEnd()) {
             return END;
         }
         commandPerformances.get(chessCommand).accept(chessBoard);
