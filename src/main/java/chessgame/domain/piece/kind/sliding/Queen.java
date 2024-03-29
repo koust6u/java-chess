@@ -2,7 +2,7 @@ package chessgame.domain.piece.kind.sliding;
 
 import chessgame.domain.piece.attribute.point.Movement;
 import chessgame.domain.piece.attribute.point.Point;
-import chessgame.domain.piece.kind.PieceStatus;
+import chessgame.domain.piece.kind.Score;
 import chessgame.domain.piece.Piece;
 import chessgame.domain.piece.attribute.Color;
 import java.util.Set;
@@ -13,8 +13,8 @@ public class Queen extends SlidingPiece {
     }
 
     @Override
-    public PieceStatus status() {
-        return PieceStatus.QUEEN;
+    public Score getScore() {
+        return Score.QUEEN;
     }
 
     @Override

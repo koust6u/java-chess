@@ -4,7 +4,6 @@ import chessgame.domain.piece.Piece;
 import chessgame.domain.piece.Pieces;
 import chessgame.domain.piece.attribute.Color;
 import chessgame.domain.piece.attribute.point.Point;
-import chessgame.dto.ChessBoardDto;
 import chessgame.dto.RouteDto;
 import chessgame.factory.ChessBoardGenerator;
 
@@ -56,7 +55,7 @@ public class ChessBoard {
     private void validateCanReplace(final Piece piece, final Point endPoint, final Point startPoint) {
         if (!pieces.canReplace(piece, endPoint)) {
             throw new IllegalArgumentException(
-                    String.format("%s 는 %s 에서 %s로 이동할 수 없습니다.", piece.status(), startPoint, endPoint));
+                    String.format("%s 는 %s 에서 %s로 이동할 수 없습니다.", piece.getScore(), startPoint, endPoint));
         }
     }
 
@@ -64,7 +63,4 @@ public class ChessBoard {
         return ChessBoardGenerator.createDefaultBoard();
     }
 
-    public ChessBoardDto toDto() {
-        return new ChessBoardDto(pieces.toDto());
-    }
 }

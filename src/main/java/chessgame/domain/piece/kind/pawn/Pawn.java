@@ -7,7 +7,7 @@ import chessgame.domain.piece.Pieces;
 import chessgame.domain.piece.attribute.Color;
 
 import chessgame.domain.piece.attribute.point.Rank;
-import chessgame.domain.piece.kind.PieceStatus;
+import chessgame.domain.piece.kind.Score;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -78,9 +78,8 @@ public abstract class Pawn extends Piece {
     }
 
     @Override
-    public PieceStatus status() {
-        return PieceStatus.PAWN;
+    public Score getScore() {
+        return Score.PAWN;
     }
-
 
 }

@@ -1,6 +1,6 @@
 package chessgame.domain;
 
-import chessgame.domain.piece.kind.PieceStatus;
+import chessgame.domain.piece.kind.Score;
 import chessgame.fixture.PieceImpl;
 import java.util.Set;
 import org.assertj.core.api.Assertions;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static chessgame.domain.piece.kind.PieceStatus.*;
+import static chessgame.domain.piece.kind.Score.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -73,20 +73,20 @@ class ChessBoardTest {
                                 .toList();
 
 
-        List<PieceStatus> pieceList = List.of(ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KNIGHT, ROOK);
-        List<PieceStatus> pawnList = IntStream.range(0, 8)
+        List<Score> pieceList = List.of(ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KNIGHT, ROOK);
+        List<Score> pawnList = IntStream.range(0, 8)
                                               .mapToObj(it -> PAWN)
                                               .toList();
 
-        List<List<PieceStatus>> expected = List.of(pieceList, pawnList, pawnList, pieceList);
+        List<List<Score>> expected = List.of(pieceList, pawnList, pawnList, pieceList);
         assertThat(result).isEqualTo(expected);
     }
 
-    private List<PieceStatus> getRankPieces(final ChessBoard chessBoard, final Rank rank) {
+    private List<Score> getRankPieces(final ChessBoard chessBoard, final Rank rank) {
         return Arrays.stream(File.values())
                      .map(file -> new Point(file, rank))
                      .map(chessBoard::findPieceByPoint)
-                     .map(Piece::status)
+                     .map(Piece::getScore)
                      .toList();
     }
 }

@@ -23,7 +23,6 @@ public class ChessGame {
             return END;
         }
         commandPerformances.get(chessCommand).accept(chessBoard);
-        OutputView.printChessBoard(chessBoard.toDto());
         return chessCommand;
     }
 

@@ -2,8 +2,7 @@ package chessgame.domain.piece;
 
 import chessgame.domain.piece.attribute.Color;
 import chessgame.domain.piece.attribute.point.Point;
-import chessgame.domain.piece.kind.PieceStatus;
-import chessgame.dto.PieceDto;
+import chessgame.domain.piece.kind.Score;
 
 import java.util.Objects;
 import java.util.Set;
@@ -18,7 +17,7 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public abstract PieceStatus status();
+    public abstract Score getScore();
 
     public Piece move(final Point destination) {
         validateSamePoint(destination);
@@ -55,10 +54,9 @@ public abstract class Piece {
         return this.color.isWhite();
     }
 
-    public PieceDto toDto() {
-        return new PieceDto(point.toDto(), this.status().getValue(), color);
+    public boolean isSameFile(final Piece comparison) {
+        return this.point.isSameFile(comparison.point);
     }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

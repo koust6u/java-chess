@@ -5,6 +5,7 @@ import chessgame.domain.piece.kind.jumping.Knight;
 import chessgame.domain.piece.kind.sliding.Bishop;
 import chessgame.domain.piece.kind.sliding.Queen;
 import chessgame.domain.piece.kind.sliding.Rook;
+import chessgame.fixture.PawnImpl;
 import chessgame.fixture.PieceImpl;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,8 @@ import chessgame.domain.piece.attribute.point.File;
 import chessgame.domain.piece.attribute.point.Point;
 import chessgame.domain.piece.attribute.point.Rank;
 
+import static chessgame.domain.piece.kind.Score.QUEEN;
+import static chessgame.domain.piece.kind.Score.ROOK;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PiecesTest {
@@ -38,7 +41,7 @@ class PiecesTest {
                 new Queen(new Point(File.E, Rank.FIVE), Color.WHITE)));
 
         final var piece = sut.findPieceWithPoint(new Point(File.A, Rank.ONE))
-                             .get();
+                .get();
 
         final var result = sut.canReplace(piece, new Point(File.E, Rank.FIVE));
         assertThat(result).isFalse();
@@ -53,7 +56,7 @@ class PiecesTest {
                 new Queen(new Point(File.E, Rank.FIVE), Color.WHITE)));
 
         final var piece = sut.findPieceWithPoint(new Point(File.A, Rank.ONE))
-                             .get();
+                .get();
 
         final var result = sut.canReplace(piece, new Point(File.E, Rank.ONE));
         assertThat(result).isFalse();
@@ -68,7 +71,7 @@ class PiecesTest {
                 new Queen(new Point(File.E, Rank.FIVE), Color.WHITE)));
 
         final var piece = sut.findPieceWithPoint(new Point(File.A, Rank.ONE))
-                             .get();
+                .get();
 
         final var result = sut.canReplace(piece, new Point(File.E, Rank.FIVE));
         assertThat(result).isFalse();
@@ -84,7 +87,7 @@ class PiecesTest {
                 new Queen(new Point(File.E, Rank.ONE), Color.WHITE)));
 
         final var piece = sut.findPieceWithPoint(new Point(File.A, Rank.ONE))
-                             .get();
+                .get();
 
         final var result = sut.canReplace(piece, new Point(File.A, Rank.THREE));
         assertThat(result).isTrue();
@@ -98,7 +101,7 @@ class PiecesTest {
                 new Queen(new Point(File.C, Rank.TWO), Color.BLACK)));
 
         final var piece = sut.findPieceWithPoint(new Point(File.A, Rank.ONE))
-                             .get();
+                .get();
 
         final var result = sut.canReplace(piece, new Point(File.C, Rank.TWO));
         assertThat(result).isFalse();
@@ -112,7 +115,7 @@ class PiecesTest {
                 new Queen(new Point(File.B, Rank.TWO), Color.BLACK)));
 
         final var piece = sut.findPieceWithPoint(new Point(File.A, Rank.ONE))
-                             .get();
+                .get();
 
         final var result = sut.canReplace(piece, new Point(File.B, Rank.TWO));
         assertThat(result).isFalse();
@@ -126,7 +129,7 @@ class PiecesTest {
                 new Queen(new Point(File.B, Rank.TWO), Color.WHITE)));
 
         final var piece = sut.findPieceWithPoint(new Point(File.A, Rank.ONE))
-                             .orElseThrow();
+                .orElseThrow();
 
         final var result = sut.canReplace(piece, new Point(File.B, Rank.TWO));
         assertThat(result).isTrue();
@@ -145,8 +148,40 @@ class PiecesTest {
         sut.replace(piece, new Point(File.B, Rank.THREE));
 
         final var findPiece = sut.findPieceWithPoint(new Point(File.B, Rank.THREE))
-                                 .orElseThrow();
+                .orElseThrow();
         assertThat(findPiece).isEqualTo(new Knight(new Point(File.B, Rank.THREE), Color.BLACK));
+    }
+
+    @Test
+    @DisplayName("흑/백 색깔을 바탕으로 해당 팀의 총점을 계산한다.")
+    void calculate_team_total_score_by_color() {
+        // Given
+        final var sut = new Pieces(Set.of(new Queen(new Point(File.A, Rank.ONE), Color.WHITE),
+                new Rook(new Point(File.A, Rank.TWO), Color.WHITE),
+                new Rook(new Point(File.F, Rank.ONE), Color.BLACK)));
+
+        // When
+        final var totalScore = sut.calculateTeamScore(Color.WHITE);
+
+        // Then
+        assertThat(totalScore).isEqualTo(QUEEN.getValue() + ROOK.getValue());
+    }
+
+    @Test
+    @DisplayName("같은 file에 두개 이상의 폰이 존재할시 각 0.5점으로 점수를 계산한다.")
+    void score_is_one_point_five_score_when_exist_more_then_two_pawns_on_the_same_file() {
+        //Give
+        final var specialCaseScore = 0.5;
+        final var sut = new Pieces(Set.of(new PawnImpl(new Point(File.A, Rank.ONE), Color.WHITE),
+                new PawnImpl(new Point(File.A, Rank.TWO), Color.WHITE),
+                new Rook(new Point(File.F, Rank.ONE), Color.BLACK)));
+
+
+        // When
+        final var totalScore = sut.calculateTeamScore(Color.WHITE);
+
+        // Then
+        assertThat(totalScore).isEqualTo(specialCaseScore * 2);
     }
 
 }

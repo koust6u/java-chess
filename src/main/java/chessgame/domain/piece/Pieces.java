@@ -1,7 +1,8 @@
 package chessgame.domain.piece;
 
+import chessgame.domain.piece.attribute.Color;
 import chessgame.domain.piece.attribute.point.Point;
-import chessgame.dto.PiecesDto;
+import chessgame.domain.piece.kind.pawn.Pawn;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -35,6 +36,38 @@ public class Pieces {
                 .findAny();
     }
 
+    public double calculateTeamScore(final Color color) {
+        return calculatePawnScore(color) + calculateScoreExceptPawn(color);
+    }
+
+    private double calculatePawnScore(Color color) {
+        return values.stream()
+                .filter(piece -> piece.isSameColor(color))
+                .filter(this::isPawn)
+                .filter(this::hasSamePawnWithSameFile)
+                .mapToDouble(pawn -> pawn.getScore().getValue() / 2)
+                .sum();
+    }
+
+    private double calculateScoreExceptPawn(Color color) {
+        return values.stream()
+                .filter(piece -> piece.isSameColor(color))
+                .filter(piece -> !isPawn(piece))
+                .mapToDouble(piece -> piece.getScore().getValue())
+                .sum();
+    }
+
+    private boolean isPawn(Piece piece) {
+        return piece instanceof Pawn;
+    }
+
+    private boolean hasSamePawnWithSameFile(final Piece findPiece) {
+        return values.stream()
+                .filter(piece -> piece.isSameColor(findPiece.color))
+                .filter(piece -> piece.isSameFile(findPiece))
+                .anyMatch(piece -> !piece.equals(findPiece));
+    }
+
     public boolean isTeam(final Piece piece, final Point point) {
         final var optionalPiece = findPieceWithPoint(point);
         return optionalPiece.filter(piece::isSameColor).isPresent();
@@ -48,12 +81,6 @@ public class Pieces {
     public boolean hasNothing(final Point endPoint) {
         return this.findPieceWithPoint(endPoint)
                 .isEmpty();
-    }
-
-    public PiecesDto toDto() {
-        return new PiecesDto(values.stream()
-                .map(Piece::toDto)
-                .toList());
     }
 
     public boolean isEmpty() {
