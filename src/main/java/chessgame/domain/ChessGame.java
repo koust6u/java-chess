@@ -11,7 +11,7 @@ import chessgame.view.OutputView;
 
 public class ChessGame {
     public void start() {
-        var chessBoard = new ChessBoard();
+        final var chessBoard = new ChessBoard();
         var chessCommand = ChessCommand.PENDING;
         OutputView.printCommandOptions();
         while (chessCommand != END) {
