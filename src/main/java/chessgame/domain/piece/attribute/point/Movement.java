@@ -28,11 +28,11 @@ public enum Movement {
         this.y = y;
     }
 
-    int x() {
+    int geyX() {
         return x;
     }
 
-    int y() {
+    int getY() {
         return y;
     }
 }

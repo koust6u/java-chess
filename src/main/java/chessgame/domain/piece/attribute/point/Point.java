@@ -8,7 +8,7 @@ public record Point(File file, Rank rank) {
     private static final Pattern pattern = Pattern.compile("[a-h][1-8]");
 
     public Point move(final Movement direction) {
-        return moveVertical(direction.y()).moveHorizontal(direction.x());
+        return moveVertical(direction.getY()).moveHorizontal(direction.geyX());
     }
 
     private Point moveVertical(final int step) {
@@ -32,7 +32,7 @@ public record Point(File file, Rank rank) {
     }
 
     public boolean canMove(final Movement direction) {
-        return canVerticalMove(direction.y()) && canHorizontalMove(direction.x());
+        return canVerticalMove(direction.getY()) && canHorizontalMove(direction.geyX());
     }
 
     private boolean canVerticalMove(final int step) {

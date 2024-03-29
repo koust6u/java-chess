@@ -56,7 +56,7 @@ public abstract class Piece {
     }
 
     public PieceDto toDto() {
-        return new PieceDto(point.toDto(), this.status().value(), color);
+        return new PieceDto(point.toDto(), this.status().getValue(), color);
     }
 
     @Override
