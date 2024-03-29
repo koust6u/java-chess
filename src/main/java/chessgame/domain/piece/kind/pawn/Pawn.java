@@ -6,7 +6,9 @@ import chessgame.domain.piece.Piece;
 import chessgame.domain.piece.Pieces;
 import chessgame.domain.piece.attribute.Color;
 
+import chessgame.domain.piece.attribute.point.Rank;
 import chessgame.domain.piece.kind.PieceStatus;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +34,39 @@ public abstract class Pawn extends Piece {
 
     }
 
-    protected abstract Set<Movement> getMovableDirection(final Pieces pieces);
+    protected abstract Set<Movement> getAttackMovements();
+
+    protected abstract Movement getDoubleStep();
+
+    protected abstract Movement getSingleStep();
+
+    protected abstract Rank getNeverMoveRank();
+
+    public Set<Movement> getMovableDirection(Pieces pieces) {
+        final var availableMovement = new HashSet<Movement>();
+        insertAbleToAttack(pieces, availableMovement);
+        if (pieces.findPieceWithPoint(point.move(getSingleStep())).isPresent()) {
+            return availableMovement;
+        }
+
+        insertSpecialCase(pieces, availableMovement);
+        availableMovement.add(getSingleStep());
+        return availableMovement;
+    }
+
+
+    private void insertAbleToAttack(final Pieces pieces, final HashSet<Movement> availableMovement) {
+        getAttackMovements().stream()
+                .filter(movement -> point.canMove(movement))
+                .filter(movement -> hasEnemy(pieces, movement))
+                .forEach(availableMovement::add);
+    }
+
+    private void insertSpecialCase(final Pieces pieces, final HashSet<Movement> availableMovement) {
+        if (point.rank() == getNeverMoveRank() && pieces.findPieceWithPoint(point.move(getDoubleStep())).isEmpty()) {
+            availableMovement.add(getDoubleStep());
+        }
+    }
 
     protected final boolean hasEnemy(final Pieces pieces, final Movement movement) {
         if (!point.canMove(movement)) {
