@@ -40,19 +40,19 @@ public abstract class Piece {
     }
 
     public boolean isSameColor(final Piece piece) {
-        return this.color == piece.color;
+        return this.color.isSame(piece.color);
     }
 
     public boolean isSameColor(final Color color) {
-        return this.color == color;
+        return this.color.isSame(color);
     }
 
     public boolean isOpposite(final Piece piece) {
-        return this.color != piece.color;
+        return this.color.isOpposite(piece.color);
     }
 
     public boolean isWhite() {
-        return this.color == Color.WHITE;
+        return this.color.isWhite();
     }
 
     public PieceDto toDto() {
