@@ -10,7 +10,6 @@ import java.util.Set;
 
 public class Pieces {
     private final Set<Piece> values;
-
     public Pieces() {
         this(Collections.emptySet());
     }
@@ -24,8 +23,7 @@ public class Pieces {
     }
 
     public void replace(final Piece piece, final Point endPoint) {
-        final var pieceWithPoint = findPieceWithPoint(endPoint);
-        pieceWithPoint.ifPresent(values::remove);
+        values.removeIf(value -> value.isEqualPoint(endPoint));
         values.remove(piece);
         Piece moved = piece.move(endPoint);
         values.add(moved);
