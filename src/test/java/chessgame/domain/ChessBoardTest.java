@@ -1,6 +1,9 @@
 package chessgame.domain;
 
 import chessgame.domain.piece.kind.Score;
+import chessgame.domain.piece.kind.Winner;
+import chessgame.domain.piece.kind.sliding.Queen;
+import chessgame.domain.piece.kind.sliding.Rook;
 import chessgame.fixture.PieceImpl;
 import java.util.Set;
 import org.assertj.core.api.Assertions;
@@ -88,5 +91,36 @@ class ChessBoardTest {
                      .map(chessBoard::findPieceByPoint)
                      .map(Piece::getScore)
                      .toList();
+    }
+
+    @Test
+    @DisplayName("기물들의 점수를 바탕으로 승리자를 가린다. (흑 승리)")
+    void find_winner_by_each_team_score_black_win_case() {
+        final var rook = new Rook(new Point(File.E, Rank.ONE), Color.WHITE);
+        final var queen = new Queen(new Point(File.A, Rank.ONE), Color.BLACK);
+        final var sut = new ChessBoard(new Pieces(Set.of(rook, queen)));
+
+        assertThat(sut.findWinner()).isSameAs(Winner.BLACK);
+    }
+
+
+    @Test
+    @DisplayName("기물들의 점수를 바탕으로 승리자를 가린다. (백 승리)")
+    void find_winner_by_each_team_score_white_win_case() {
+        final var rook = new Rook(new Point(File.E, Rank.ONE), Color.BLACK);
+        final var queen = new Queen(new Point(File.A, Rank.ONE), Color.WHITE);
+        final var sut = new ChessBoard(new Pieces(Set.of(rook, queen)));
+
+        assertThat(sut.findWinner()).isSameAs(Winner.WHITE);
+    }
+
+    @Test
+    @DisplayName("기물들의 점수를 바탕으로 승리자를 가린다. (무승부)")
+    void find_winner_by_each_team_score_draw_case() {
+        final var queen1 = new Queen(new Point(File.E, Rank.ONE), Color.BLACK);
+        final var queen2 = new Queen(new Point(File.A, Rank.ONE), Color.WHITE);
+        final var sut = new ChessBoard(new Pieces(Set.of(queen1, queen2)));
+
+        assertThat(sut.findWinner()).isSameAs(Winner.DRAW);
     }
 }
