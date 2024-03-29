@@ -7,7 +7,6 @@ import chessgame.domain.piece.attribute.point.Point;
 import chessgame.dto.ChessBoardDto;
 import chessgame.dto.RouteDto;
 import chessgame.factory.ChessBoardGenerator;
-import java.util.Set;
 
 public class ChessBoard {
     private Pieces pieces;
@@ -15,7 +14,7 @@ public class ChessBoard {
 
     public ChessBoard() {
         color = Color.WHITE;
-        this.pieces = new Pieces(Set.of());
+        this.pieces = new Pieces();
     }
 
     public ChessBoard(final Pieces pieces) {

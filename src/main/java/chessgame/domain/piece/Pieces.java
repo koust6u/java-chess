@@ -8,6 +8,10 @@ import java.util.*;
 public class Pieces {
     private final Set<Piece> values;
 
+    public Pieces() {
+        this(Collections.emptySet());
+    }
+
     public Pieces(final Set<Piece> pieces) {
         this.values = new HashSet<>(pieces);
     }
