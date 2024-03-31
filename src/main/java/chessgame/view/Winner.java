@@ -31,6 +31,10 @@ public enum Winner {
         return WHITE;
     }
 
+    public boolean isDraw() {
+        return DRAW == this;
+    }
+
     public String getValue() {
         return value;
     }

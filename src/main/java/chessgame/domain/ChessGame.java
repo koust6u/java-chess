@@ -28,8 +28,8 @@ public class ChessGame {
     }
 
     public static RouteDto askRoute() {
-        final var source = ExceptionHandler.handleInputWithRetry(InputView::inputChessPoint);
-        final var destination = ExceptionHandler.handleInputWithRetry(InputView::inputChessPoint);
+        final var source = InputView.inputChessPoint();
+        final var destination = InputView.inputChessPoint();
         return new RouteDto(source, destination);
     }
 

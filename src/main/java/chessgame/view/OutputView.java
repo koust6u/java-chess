@@ -10,6 +10,7 @@ import static chessgame.domain.piece.kind.Score.ROOK;
 import chessgame.domain.ChessBoard;
 import chessgame.domain.piece.Piece;
 import chessgame.domain.piece.Pieces;
+import chessgame.domain.piece.attribute.Color;
 import chessgame.domain.piece.attribute.point.File;
 import chessgame.domain.piece.attribute.point.Point;
 import chessgame.domain.piece.attribute.point.Rank;
@@ -31,6 +32,7 @@ public class OutputView {
     public static void printCommandOptions() {
         System.out.println("> 체스 게임을 시작합니다.");
         System.out.println("> 게임 시작 : start");
+        System.out.println("> 게임 결과 : status");
         System.out.println("> 게임 종료 : end");
         System.out.print("> 게임 이동 : move source위치 target위치 - 예. move b2 b3");
     }
@@ -40,8 +42,12 @@ public class OutputView {
     }
 
     public static void printGameResult(double whiteScore, double blackScore, Winner winner) {
-        System.out.printf("백의 정수는 %lf입니다.%n", whiteScore);
-        System.out.printf("흑의 점수는 %lf입니다.%n", blackScore);
+        System.out.printf("백의 정수는 %.1f입니다.%n", whiteScore);
+        System.out.printf("흑의 점수는 %.1f입니다.%n", blackScore);
+        if (winner.isDraw()) {
+            System.out.println("무승부입니다. 게임의 승자는 없습니다.");
+            return;
+        }
         System.out.printf("따라서 게임의 승자는 %s입니다%n", winner);
     }
 
@@ -56,8 +62,18 @@ public class OutputView {
         StringBuilder sb = new StringBuilder();
         Arrays.stream(File.values())
                 .map(file -> new Point(file, rank))
-                .forEach(point -> sb.append(getEachPointText(chessBoard, point)));
+                .map(point ->  toUppercase(chessBoard, point, getEachPointText(chessBoard, point)))
+                .forEach(sb::append);
+
         return sb.toString();
+    }
+
+    private static String toUppercase(ChessBoard chessBoard, Point point, String text) {
+        Optional<Piece> pieceWithPoint = chessBoard.getPieces().findPieceWithPoint(point);
+        if (pieceWithPoint.isPresent() && pieceWithPoint.get().isSameColor(Color.BLACK)) {
+            return text.toUpperCase();
+        }
+        return text;
     }
 
     private static String getEachPointText(ChessBoard chessBoard, Point point) {
