@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Pieces {
     private final Set<Piece> values;
@@ -123,4 +124,9 @@ public class Pieces {
     public boolean isEmpty() {
         return this.values.isEmpty();
     }
+
+    public Stream<Piece> stream() {
+        return this.values.stream();
+    }
+
 }

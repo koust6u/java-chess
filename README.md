@@ -1,6 +1,6 @@
 # java-chess
 
-### 체스미션 3단계- 승패 및 점수 
+### 체스미션 3,단계- 승패 및 점수
 
 ### 1. 기능 요구 사항
 + King이 잡혔을 때 게임을 종료해야한다.
@@ -9,6 +9,26 @@
   + 같은 팀 Pawn이 같은 세로 줄에 2개 이상 있으면 0.5점, 그 외 1점 
 + `status` 명령을 입력하면 각 진의 점수와 결과를 출력한다.
 
++ 애플리케이션을 재시작하더라도 이전에 하던 체스 게임을 다시 시작할 수 있어야 한다.
++ DB를 적용할 때 도메인 객체의 변경을 최소화해야한다.
+
+**schema**
+```angular2html
+CREATE TABLE chess_game (
+id INT AUTO_INCREMENT PRIMARY KEY,
+turn ENUM('white', 'black')
+);
+
+CREATE TABLE pieces (
+id INT AUTO_INCREMENT PRIMARY KEY,
+chess_game_id INT,
+FOREIGN KEY (chess_game_id) REFERENCES chess_game(id),
+file VARCHAR(1),
+symbol VARCHAR(5),
+piece_rank INT
+);
+
+```
 
 ### 2. 기능 목록
 

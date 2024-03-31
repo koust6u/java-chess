@@ -55,4 +55,8 @@ public enum Rank {
         }
         throw new IllegalStateException("이동할 수 없는 위치입니다.");
     }
+
+    public int getValue() {
+        return value;
+    }
 }

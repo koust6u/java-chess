@@ -22,6 +22,11 @@ public class ChessBoard {
         this.pieces = pieces;
     }
 
+    public ChessBoard(final Pieces pieces, final Color color) {
+        this.turn = color;
+        this.pieces = pieces;
+    }
+
     public void reset() {
         this.pieces = ChessBoardGenerator.createDefaultPieces();
     }
@@ -90,4 +95,9 @@ public class ChessBoard {
     public Pieces getPieces() {
         return new Pieces(pieces);
     }
+
+    public Color getTurn() {
+        return turn;
+    }
+
 }

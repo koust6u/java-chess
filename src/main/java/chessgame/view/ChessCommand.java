@@ -1,12 +1,6 @@
 package chessgame.view;
 
-import static chessgame.domain.ChessGame.askRoute;
-
-import chessgame.domain.ChessBoard;
-import chessgame.domain.ChessGame;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Consumer;
 
 public enum ChessCommand {
     PENDING(""),
@@ -16,10 +10,6 @@ public enum ChessCommand {
     STATUS("status");
 
     private final String commandText;
-
-    public static final Map<ChessCommand, Consumer<ChessBoard>> commandPerformances
-            = Map.of(START, ChessBoard::reset, MOVE, chessBoard -> chessBoard.move(askRoute()),
-            STATUS, ChessGame::getGameResult, END, chessBoard ->  System.exit(0));
 
     ChessCommand(final String commandText) {
         this.commandText = commandText;
