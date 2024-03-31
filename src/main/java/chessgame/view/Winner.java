@@ -1,12 +1,18 @@
-package chessgame.domain.piece.kind;
+package chessgame.view;
 
 import chessgame.domain.piece.attribute.Color;
 
 public enum Winner {
-    BLACK,
-    WHITE,
-    DRAW,
-    UNDETERMINED;
+    BLACK("흑"),
+    WHITE("백"),
+    DRAW("무승부"),
+    UNDETERMINED("게임 진행중");
+
+    private final String value;
+
+    Winner(String value) {
+        this.value = value;
+    }
 
     public static Winner from(double whiteScore, double blackScore) {
         if (whiteScore < blackScore) {
@@ -23,5 +29,9 @@ public enum Winner {
             return BLACK;
         }
         return WHITE;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

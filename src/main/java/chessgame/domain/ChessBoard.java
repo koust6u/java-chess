@@ -4,7 +4,7 @@ import chessgame.domain.piece.Piece;
 import chessgame.domain.piece.Pieces;
 import chessgame.domain.piece.attribute.Color;
 import chessgame.domain.piece.attribute.point.Point;
-import chessgame.domain.piece.kind.Winner;
+import chessgame.view.Winner;
 import chessgame.dto.RouteDto;
 import chessgame.factory.ChessBoardGenerator;
 
@@ -73,6 +73,10 @@ public class ChessBoard {
         double whiteScore = pieces.calculateTeamScore(Color.WHITE);
         double blackScore = pieces.calculateTeamScore(Color.BLACK);
         return Winner.from(whiteScore, blackScore);
+    }
+
+    public double findTotalScore(Color color) {
+        return pieces.calculateTeamScore(color);
     }
 
     public boolean isGameOver() {

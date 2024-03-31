@@ -1,7 +1,7 @@
 package chessgame.domain;
 
 import chessgame.domain.piece.kind.Score;
-import chessgame.domain.piece.kind.Winner;
+import chessgame.view.Winner;
 import chessgame.domain.piece.kind.jumping.King;
 import chessgame.domain.piece.kind.sliding.Queen;
 import chessgame.domain.piece.kind.sliding.Rook;

@@ -32,4 +32,10 @@ public class OutputView {
     public static void printExceptionMessage(final String message) {
         System.out.println("[ERROR] " + message);
     }
+
+    public static void printGameResult(double whiteScore, double blackScore, Winner winner) {
+        System.out.printf("백의 정수는 %lf입니다.%n", whiteScore);
+        System.out.printf("흑의 점수는 %lf입니다.%n", blackScore);
+        System.out.printf("따라서 게임의 승자는 %s입니다%n", winner);
+    }
 }
