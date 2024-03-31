@@ -1,9 +1,12 @@
 package chessgame.domain.piece.kind;
 
+import chessgame.domain.piece.attribute.Color;
+
 public enum Winner {
     BLACK,
     WHITE,
-    DRAW;
+    DRAW,
+    UNDETERMINED;
 
     public static Winner from(double whiteScore, double blackScore) {
         if (whiteScore < blackScore) {
@@ -13,5 +16,12 @@ public enum Winner {
             return WHITE;
         }
         return DRAW;
+    }
+
+    public static Winner of(Color color) {
+        if (color.isBlack()) {
+            return BLACK;
+        }
+        return WHITE;
     }
 }

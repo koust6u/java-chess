@@ -2,8 +2,10 @@ package chessgame.domain;
 
 import chessgame.domain.piece.kind.Score;
 import chessgame.domain.piece.kind.Winner;
+import chessgame.domain.piece.kind.jumping.King;
 import chessgame.domain.piece.kind.sliding.Queen;
 import chessgame.domain.piece.kind.sliding.Rook;
+import chessgame.dto.RouteDto;
 import chessgame.fixture.PieceImpl;
 import java.util.Set;
 import org.assertj.core.api.Assertions;
@@ -123,4 +125,40 @@ class ChessBoardTest {
 
         assertThat(sut.findWinner()).isSameAs(Winner.DRAW);
     }
+
+
+    @Test
+    @DisplayName("체크메이트가 아니면 게임이 끝나지 않는다.")
+    void game_over_if_king_dies_not_finish_case() {
+        final var queen = new Queen(new Point(File.E, Rank.TWO), Color.WHITE);
+        final var king = new King(new Point(File.A, Rank.ONE), Color.BLACK);
+        final var sut = new ChessBoard(new Pieces(Set.of(queen, king)));
+        assertThat(sut.move(new RouteDto("e2", "b2")))
+                .isSameAs(Winner.UNDETERMINED);
+    }
+
+     /*
+    ........ 8
+    ........ 7
+    ........ 6
+    ........ 5
+    ........ 4
+    R....... 3
+    XX..... 2
+    kXQ..... 1
+    abcdefgh
+     */
+
+    @Test
+    @DisplayName("체크메이트가 되면 게임이 끝난다.")
+    void game_over_if_king_dies() {
+        final var queen = new Queen(new Point(File.D, Rank.ONE), Color.WHITE);
+        final var rook = new Rook(new Point(File.A, Rank.THREE), Color.WHITE);
+        final var king = new King(new Point(File.A, Rank.ONE), Color.BLACK);
+        final var sut = new ChessBoard(new Pieces(Set.of(queen, rook, king)));
+
+        assertThat(sut.move(new RouteDto("d1", "c1")))
+                .isSameAs(Winner.WHITE);
+    }
 }
+

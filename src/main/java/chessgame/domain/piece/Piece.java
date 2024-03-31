@@ -50,6 +50,10 @@ public abstract class Piece {
         return this.color.isOpposite(piece.color);
     }
 
+    public boolean isOpposite(final Color color) {
+        return this.color.isOpposite(color);
+    }
+
     public boolean isWhite() {
         return this.color.isWhite();
     }

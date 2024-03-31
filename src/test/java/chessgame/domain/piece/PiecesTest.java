@@ -19,7 +19,8 @@ import static chessgame.domain.piece.kind.Score.QUEEN;
 import static chessgame.domain.piece.kind.Score.ROOK;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PiecesTest {
+class
+PiecesTest {
 
     @Test
     @DisplayName("기물 목록을 포함한 일급컬렉션을 생성한다.")
@@ -184,4 +185,68 @@ class PiecesTest {
         assertThat(totalScore).isEqualTo(specialCaseScore * 2);
     }
 
+    @Test
+    @DisplayName("기물의 색을 기준으로 해당 킹이 체크 상태인지 알 수 있다.(참)")
+    void can_know_current_king_is_check_by_color_return_true_case() {
+        final var sut = new Pieces(Set.of(new Rook(new Point(File.A, Rank.ONE), Color.WHITE),
+                new King(new Point(File.A, Rank.EIGHT), Color.BLACK)));
+
+        assertThat(sut.canRemovable(new Point(File.A, Rank.EIGHT), Color.BLACK)).isTrue();
+    }
+
+
+    @Test
+    @DisplayName("기물의 색을 기준으로 해당 킹이 체크 상태인지 알 수 있다.(거짓)")
+    void can_know_current_king_is_check_by_color_return_false_case() {
+        final var sut = new Pieces(Set.of(new Rook(new Point(File.A, Rank.ONE), Color.WHITE),
+                new King(new Point(File.C, Rank.EIGHT), Color.BLACK)));
+
+        assertThat(sut.canRemovable(new Point(File.C, Rank.EIGHT), Color.BLACK)).isFalse();
+    }
+
+
+
+    /*
+   ........ 8
+   ........ 7
+   ........ 6
+   ........ 5
+   ..XXX... 4
+   ..XXX... 3
+   ..XXX... 2
+   ........ 1
+   abcdefgh
+     */
+    @Test
+    @DisplayName("기물의 색을 기준으로 해당 킹이 체크메이트 상태인지 알 수 있다.(참)")
+    void can_know_current_king_is_checkmate_by_color_return_true_case() {
+        final var sut = new Pieces(Set.of(new King(new Point(File.D, Rank.THREE), Color.WHITE),
+                new Rook(new Point(File.C, Rank.TWO), Color.BLACK),
+                new Rook(new Point(File.E, Rank.FOUR), Color.BLACK),
+                new Bishop(new Point(File.E, Rank.TWO), Color.BLACK)));
+
+        assertThat(sut.canRemovable(new Point(File.D, Rank.THREE), Color.WHITE)).isTrue();
+    }
+
+
+    /*
+   ........ 8
+   ........ 7
+   ........ 6
+   ........ 5
+   ..XXX... 4
+   ..XKX... 3
+   ..XXX... 2
+   ........ 1
+   abcdefgh
+     */
+    @Test
+    @DisplayName("기물의 색을 기준으로 해당 킹이 체크메이트 상태인지 알 수 있다.(거짓)")
+    void can_know_current_king_is_checkmate_by_color_return_false_case() {
+        final var sut = new Pieces(Set.of(new King(new Point(File.D, Rank.THREE), Color.WHITE),
+                new Rook(new Point(File.C, Rank.TWO), Color.BLACK),
+                new Rook(new Point(File.E, Rank.FOUR), Color.BLACK)));
+
+        assertThat(sut.canRemovable(new Point(File.D, Rank.THREE), Color.WHITE)).isFalse();
+    }
 }

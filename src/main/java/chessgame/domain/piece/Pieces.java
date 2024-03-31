@@ -2,6 +2,7 @@ package chessgame.domain.piece;
 
 import chessgame.domain.piece.attribute.Color;
 import chessgame.domain.piece.attribute.point.Point;
+import chessgame.domain.piece.kind.jumping.King;
 import chessgame.domain.piece.kind.pawn.Pawn;
 
 import java.util.Collections;
@@ -66,6 +67,38 @@ public class Pieces {
                 .filter(piece -> piece.isSameColor(findPiece.color))
                 .filter(piece -> piece.isSameFile(findPiece))
                 .anyMatch(piece -> !piece.equals(findPiece));
+    }
+
+    public boolean isCheckmate(Color color) {
+        Point kingPoint = findKingPoint(color);
+        if (!canRemovable(kingPoint, color)) {
+            return false;
+        }
+        return findPieceWithPoint(kingPoint)
+                .orElseThrow(IllegalStateException::new)
+                .findLegalMovePoints(this)
+                .stream()
+                .allMatch(point -> canRemovable(point, color));
+    }
+
+    public boolean canRemovable(Point findPoint, Color color) {
+        return values.stream()
+                .filter(piece -> piece.isOpposite(color))
+                .flatMap(piece -> piece.findLegalMovePoints(this).stream())
+                .anyMatch(point -> point.equals(findPoint));
+    }
+
+    private Point findKingPoint(Color color) {
+        return values.stream()
+                .filter(piece -> piece.isSameColor(color))
+                .filter(this::isKing)
+                .findFirst()
+                .map(piece -> piece.point)
+                .orElseThrow(IllegalStateException::new);
+    }
+
+    public boolean isKing(Piece piece) {
+        return piece instanceof King;
     }
 
     public boolean isTeam(final Piece piece, final Point point) {

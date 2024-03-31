@@ -14,7 +14,6 @@ public enum Score {
         this.value = score;
     }
 
-
     public double getValue() {
         return value;
     }

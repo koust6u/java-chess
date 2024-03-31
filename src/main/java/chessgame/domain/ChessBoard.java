@@ -18,6 +18,7 @@ public class ChessBoard {
     }
 
     public ChessBoard(final Pieces pieces) {
+        this.turn = Color.WHITE;
         this.pieces = pieces;
     }
 
@@ -30,15 +31,22 @@ public class ChessBoard {
                 .orElseThrow(() -> new IllegalArgumentException("해당 포인트에는 기물이 없습니다"));
     }
 
-    public void move(final RouteDto dto) {
-        validateGameProceed();
-        final var startPoint = dto.getStartPoint();
+    public Winner move(final RouteDto dto) {
+        final var piece = findPieceByPoint(dto.getStartPoint());
         final var endPoint = dto.getEndPoint();
-        final var piece = findPieceByPoint(startPoint);
-        validateCorrectTurn(piece);
-        validateCanReplace(piece, endPoint, startPoint);
+        validate(piece, endPoint);
         pieces.replace(piece, endPoint);
         turn = turn.getOpposite();
+        if (isGameOver()) {
+            return Winner.of(turn.getOpposite());
+        }
+        return Winner.UNDETERMINED;
+    }
+
+    private void validate(Piece piece, Point endPoint) {
+        validateGameProceed();
+        validateCorrectTurn(piece);
+        validateCanReplace(piece, endPoint);
     }
 
     private void validateCorrectTurn(final Piece piece) {
@@ -53,17 +61,22 @@ public class ChessBoard {
         }
     }
 
-    private void validateCanReplace(final Piece piece, final Point endPoint, final Point startPoint) {
+    private void validateCanReplace(final Piece piece, final Point endPoint) {
         if (!pieces.canReplace(piece, endPoint)) {
             throw new IllegalArgumentException(
-                    String.format("%s 는 %s 에서 %s로 이동할 수 없습니다.", piece.getScore(), startPoint, endPoint));
+                    String.format("%s로 이동할 수 없습니다.", endPoint));
         }
     }
+
 
     public Winner findWinner() {
         double whiteScore = pieces.calculateTeamScore(Color.WHITE);
         double blackScore = pieces.calculateTeamScore(Color.BLACK);
         return Winner.from(whiteScore, blackScore);
+    }
+
+    public boolean isGameOver() {
+        return pieces.isCheckmate(this.turn);
     }
 
     public static ChessBoard createDefaultBoard() {
