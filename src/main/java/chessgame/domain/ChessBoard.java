@@ -87,4 +87,7 @@ public class ChessBoard {
         return ChessBoardGenerator.createDefaultBoard();
     }
 
+    public Pieces getPieces() {
+        return new Pieces(pieces);
+    }
 }

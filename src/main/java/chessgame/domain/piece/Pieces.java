@@ -16,6 +16,10 @@ public class Pieces {
         this(Collections.emptySet());
     }
 
+    public Pieces(Pieces pieces) {
+        this.values = new HashSet<>(pieces.values);
+    }
+
     public Pieces(final Set<Piece> pieces) {
         this.values = new HashSet<>(pieces);
     }

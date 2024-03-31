@@ -22,8 +22,8 @@ public class ChessGame {
 
     private ChessCommand proceed(final ChessBoard chessBoard) {
         final var chessCommand = InputView.inputChessCommand();
-
         commandPerformances.get(chessCommand).accept(chessBoard);
+        OutputView.printChessBoard(chessBoard);
         return chessCommand;
     }
 

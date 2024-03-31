@@ -21,7 +21,6 @@ public enum ChessCommand {
             = Map.of(START, ChessBoard::reset, MOVE, chessBoard -> chessBoard.move(askRoute()),
             STATUS, ChessGame::getGameResult, END, chessBoard ->  System.exit(0));
 
-
     ChessCommand(final String commandText) {
         this.commandText = commandText;
     }
