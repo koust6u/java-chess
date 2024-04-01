@@ -3,16 +3,10 @@ package chessgame.view;
 import chessgame.domain.piece.attribute.Color;
 
 public enum Winner {
-    BLACK("흑"),
-    WHITE("백"),
-    DRAW("무승부"),
-    UNDETERMINED("게임 진행중");
-
-    private final String value;
-
-    Winner(final String value) {
-        this.value = value;
-    }
+    BLACK,
+    WHITE,
+    DRAW,
+    UNDETERMINED;
 
     public static Winner from(final double whiteScore, final double blackScore) {
         if (whiteScore < blackScore) {
