@@ -155,7 +155,9 @@ class ChessBoardTest {
         final var queen = new Queen(new Point(File.D, Rank.ONE), Color.WHITE);
         final var rook = new Rook(new Point(File.A, Rank.THREE), Color.WHITE);
         final var king = new King(new Point(File.A, Rank.ONE), Color.BLACK);
-        final var sut = new ChessBoard(new Pieces(Set.of(queen, rook, king)));
+        final var king2 = new King(new Point(File.H, Rank.ONE), Color.WHITE);
+
+        final var sut = new ChessBoard(new Pieces(Set.of(queen, rook, king, king2)));
 
         assertThat(sut.move(new RouteDto("d1", "c1")))
                 .isSameAs(Winner.WHITE);
