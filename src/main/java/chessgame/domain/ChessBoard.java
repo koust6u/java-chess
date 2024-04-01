@@ -29,6 +29,7 @@ public class ChessBoard {
 
     public void reset() {
         this.pieces = ChessBoardGenerator.createDefaultPieces();
+        this.turn = Color.WHITE;
     }
 
     public Piece findPieceByPoint(final Point point) {
