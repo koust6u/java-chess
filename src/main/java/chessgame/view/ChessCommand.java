@@ -26,7 +26,4 @@ public enum ChessCommand {
         return this == END;
     }
 
-    public boolean isStart() {
-        return this == START;
-    }
 }

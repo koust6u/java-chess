@@ -10,11 +10,11 @@ public enum Winner {
 
     private final String value;
 
-    Winner(String value) {
+    Winner(final String value) {
         this.value = value;
     }
 
-    public static Winner from(double whiteScore, double blackScore) {
+    public static Winner from(final double whiteScore, final double blackScore) {
         if (whiteScore < blackScore) {
             return BLACK;
         }
@@ -24,7 +24,7 @@ public enum Winner {
         return DRAW;
     }
 
-    public static Winner of(Color color) {
+    public static Winner of(final Color color) {
         if (color.isBlack()) {
             return BLACK;
         }
@@ -35,7 +35,4 @@ public enum Winner {
         return DRAW == this;
     }
 
-    public String getValue() {
-        return value;
-    }
 }

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public abstract class JumpingPiece extends Piece {
 
-    protected JumpingPiece(Point point, Color color) {
+    protected JumpingPiece(final Point point, final Color color) {
         super(point, color);
     }
 

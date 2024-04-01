@@ -17,7 +17,7 @@ public class Pieces {
         this(Collections.emptySet());
     }
 
-    public Pieces(Pieces pieces) {
+    public Pieces(final Pieces pieces) {
         this.values = new HashSet<>(pieces.values);
     }
 
@@ -46,7 +46,7 @@ public class Pieces {
         return calculatePawnScore(color) + calculateScoreExceptPawn(color);
     }
 
-    private double calculatePawnScore(Color color) {
+    private double calculatePawnScore(final Color color) {
         return values.stream()
                 .filter(piece -> piece.isSameColor(color))
                 .filter(this::isPawn)
@@ -55,7 +55,7 @@ public class Pieces {
                 .sum();
     }
 
-    private double calculateScoreExceptPawn(Color color) {
+    private double calculateScoreExceptPawn(final Color color) {
         return values.stream()
                 .filter(piece -> piece.isSameColor(color))
                 .filter(piece -> !isPawn(piece))
@@ -63,7 +63,7 @@ public class Pieces {
                 .sum();
     }
 
-    private boolean isPawn(Piece piece) {
+    private boolean isPawn(final Piece piece) {
         return piece instanceof Pawn;
     }
 
@@ -74,8 +74,8 @@ public class Pieces {
                 .anyMatch(piece -> !piece.equals(findPiece));
     }
 
-    public boolean isCheckmate(Color color) {
-        Point kingPoint = findKingPoint(color);
+    public boolean isCheckmate(final Color color) {
+        final var kingPoint = findKingPoint(color);
         if (!canRemovable(kingPoint, color)) {
             return false;
         }
@@ -86,7 +86,7 @@ public class Pieces {
                 .allMatch(point -> canRemovable(point, color));
     }
 
-    public boolean hasNotKing(Color color) {
+    public boolean hasNotKing(final Color color) {
         return this.values.stream()
                 .filter(piece -> piece.isSameColor(color))
                 .filter(this::isKing)

@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class Pawn extends Piece {
-    protected Pawn(Point point, Color color) {
+    protected Pawn(final Point point, final Color color) {
         super(point, color);
     }
 
@@ -42,7 +42,7 @@ public abstract class Pawn extends Piece {
 
     protected abstract Rank getNeverMoveRank();
 
-    public Set<Movement> getMovableDirection(Pieces pieces) {
+    public Set<Movement> getMovableDirection(final Pieces pieces) {
         final var availableMovement = new HashSet<Movement>();
         insertAbleToAttack(pieces, availableMovement);
         if (pieces.findPieceWithPoint(point.move(getSingleStep())).isPresent()) {

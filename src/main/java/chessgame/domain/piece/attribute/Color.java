@@ -14,11 +14,11 @@ public enum Color {
         throw new IllegalArgumentException("없는 색입니다. ");
     }
 
-    public boolean isSame(Color color) {
+    public boolean isSame(final Color color) {
         return this == color;
     }
 
-    public boolean isOpposite(Color color) {
+    public boolean isOpposite(final Color color) {
         return this != color;
     }
 

@@ -8,7 +8,6 @@ import chessgame.dto.RouteDto;
 import chessgame.view.InputView;
 import chessgame.view.ChessCommand;
 import chessgame.view.OutputView;
-import chessgame.view.Winner;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -40,17 +39,17 @@ public class ChessGame {
         return chessCommand;
     }
 
-    private ChessBoard start(ChessBoard chessBoard) {
+    private ChessBoard start(final ChessBoard chessBoard) {
         chessDao.configuration();
         return chessDao.findCurrentChessBoard();
     }
 
-    private ChessBoard move(ChessBoard chessBoard) {
+    private ChessBoard move(final ChessBoard chessBoard) {
         chessBoard.move(askRoute());
         return chessBoard;
     }
 
-    private ChessBoard finish(ChessBoard chessBoard) {
+    private ChessBoard finish(final ChessBoard chessBoard) {
         chessDao.saveGame(chessBoard);
         chessDao.savePieces(chessBoard);
         System.exit(0);
@@ -58,7 +57,7 @@ public class ChessGame {
         return chessBoard;
     }
 
-    private ChessBoard resetGame(ChessBoard chessBoard) {
+    private ChessBoard resetGame(final ChessBoard chessBoard) {
         chessBoard.reset();
         chessDao.saveGame(chessBoard);
         chessDao.savePieces(chessBoard);
@@ -71,10 +70,10 @@ public class ChessGame {
         return new RouteDto(source, destination);
     }
 
-    public ChessBoard getGameResult(ChessBoard chessBoard) {
-        double whiteScore = chessBoard.findTotalScore(Color.WHITE);
-        double blackScore = chessBoard.findTotalScore(Color.BLACK);
-        Winner winner = chessBoard.findWinner();
+    public ChessBoard getGameResult(final ChessBoard chessBoard) {
+        final var whiteScore = chessBoard.findTotalScore(Color.WHITE);
+        final var blackScore = chessBoard.findTotalScore(Color.BLACK);
+        final var winner = chessBoard.findWinner();
         OutputView.printGameResult(whiteScore, blackScore, winner);
         resetGame(chessBoard);
         System.exit(0);

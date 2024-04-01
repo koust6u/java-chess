@@ -51,15 +51,15 @@ public class OutputView {
         System.out.printf("따라서 게임의 승자는 %s입니다%n", winner);
     }
 
-    public static void printChessBoard(ChessBoard chessBoard) {
+    public static void printChessBoard(final ChessBoard chessBoard) {
         Arrays.stream(Rank.values())
                 .sorted(Comparator.reverseOrder())
                 .map(rank -> printChessBoardEachLine(chessBoard, rank))
                 .forEach(System.out::println);
     }
 
-    private static String printChessBoardEachLine(ChessBoard chessBoard, Rank rank) {
-        StringBuilder sb = new StringBuilder();
+    private static String printChessBoardEachLine(final ChessBoard chessBoard,final Rank rank) {
+        final var sb = new StringBuilder();
         Arrays.stream(File.values())
                 .map(file -> new Point(file, rank))
                 .map(point ->  toUppercase(chessBoard, point, getEachPointText(chessBoard, point)))
@@ -68,8 +68,8 @@ public class OutputView {
         return sb.toString();
     }
 
-    private static String toUppercase(ChessBoard chessBoard, Point point, String text) {
-        Optional<Piece> pieceWithPoint = chessBoard.getPieces().findPieceWithPoint(point);
+    private static String toUppercase(final ChessBoard chessBoard, Point point, final String text) {
+        final var pieceWithPoint = chessBoard.getPieces().findPieceWithPoint(point);
         if (pieceWithPoint.isPresent() && pieceWithPoint.get().isSameColor(Color.BLACK)) {
             return text.toUpperCase();
         }

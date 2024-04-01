@@ -13,7 +13,7 @@ import chessgame.domain.piece.attribute.point.Rank;
 import java.util.Set;
 
 public class BlackPawn extends Pawn {
-    protected BlackPawn(Point point, Color color) {
+    protected BlackPawn(final Point point, final Color color) {
         super(point, color);
     }
 
@@ -39,7 +39,7 @@ public class BlackPawn extends Pawn {
     }
 
     @Override
-    protected Piece update(Point point) {
+    protected Piece update(final Point point) {
         return new BlackPawn(point, color);
     }
 

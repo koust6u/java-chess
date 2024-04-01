@@ -74,7 +74,7 @@ public class ChessDao {
     public ChessBoard findCurrentChessBoard() {
         final var topIndex = findTopIndex();
         final var currentTurn = findCurrentTurn();
-        String query = "SELECT * FROM pieces WHERE chess_game_id = ?";
+        final var query = "SELECT * FROM pieces WHERE chess_game_id = ?";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, topIndex);
@@ -102,11 +102,11 @@ public class ChessDao {
     private static Set<Piece> generatePieces(final ResultSet resultSet) throws SQLException {
         final var pieceSet = new HashSet<Piece>();
         while (resultSet.next()) {
-            File file = File.from(resultSet.getString("file"));
-            Rank rank = Rank.from(resultSet.getInt("piece_rank"));
-            Color color = Color.from(resultSet.getString("color"));
-            Score symbol = Score.from(resultSet.getString("symbol"));
-            Piece generatedPiece = Piece.from(symbol, new Point(file, rank), color);
+            final var file = File.from(resultSet.getString("file"));
+            final var rank = Rank.from(resultSet.getInt("piece_rank"));
+            final var color = Color.from(resultSet.getString("color"));
+            final var symbol = Score.from(resultSet.getString("symbol"));
+            final var generatedPiece = Piece.from(symbol, new Point(file, rank), color);
             pieceSet.add(generatedPiece);
         }
         return pieceSet;
@@ -116,7 +116,7 @@ public class ChessDao {
         final var query = "SELECT id FROM chess_game ORDER BY id DESC LIMIT 1";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+            final var resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return resultSet.getInt("id");
         } catch (SQLException e) {
@@ -134,8 +134,8 @@ public class ChessDao {
     private boolean isFirstGame() {
         try (final var conn = getConnection();
              final var preparedStatement = conn.createStatement()) {
-            String sql = "SELECT COUNT(*) FROM chess_game";
-            ResultSet rs = preparedStatement.executeQuery(sql);
+            final var sql = "SELECT COUNT(*) FROM chess_game";
+            final var rs = preparedStatement.executeQuery(sql);
             rs.next();
             int rowCount = rs.getInt(1);
             return rowCount == 0;

@@ -49,7 +49,7 @@ public class ChessBoard {
         return Winner.UNDETERMINED;
     }
 
-    private void validate(Piece piece, Point endPoint) {
+    private void validate(final Piece piece, final Point endPoint) {
         validateGameProceed();
         validateCorrectTurn(piece);
         validateCanReplace(piece, endPoint);
@@ -76,12 +76,12 @@ public class ChessBoard {
 
 
     public Winner findWinner() {
-        double whiteScore = pieces.calculateTeamScore(Color.WHITE);
-        double blackScore = pieces.calculateTeamScore(Color.BLACK);
+        final var whiteScore = pieces.calculateTeamScore(Color.WHITE);
+        final var blackScore = pieces.calculateTeamScore(Color.BLACK);
         return Winner.from(whiteScore, blackScore);
     }
 
-    public double findTotalScore(Color color) {
+    public double findTotalScore(final Color color) {
         return pieces.calculateTeamScore(color);
     }
 

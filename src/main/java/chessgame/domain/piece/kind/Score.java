@@ -18,7 +18,7 @@ public enum Score {
         this.value = score;
     }
 
-    public static Score from(String value) {
+    public static Score from(final String value) {
         return Arrays.stream(values())
                 .filter(score -> score.getSymbol().equals(value))
                 .findFirst()
