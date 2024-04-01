@@ -86,6 +86,14 @@ public class Pieces {
                 .allMatch(point -> canRemovable(point, color));
     }
 
+    public boolean hasNotKing(Color color) {
+        return this.values.stream()
+                .filter(piece -> piece.isSameColor(color))
+                .filter(this::isKing)
+                .findFirst()
+                .isEmpty();
+    }
+
     public boolean canRemovable(Point findPoint, Color color) {
         return values.stream()
                 .filter(piece -> piece.isOpposite(color))

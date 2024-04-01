@@ -42,10 +42,10 @@ public class ChessBoard {
         final var endPoint = dto.getEndPoint();
         validate(piece, endPoint);
         pieces.replace(piece, endPoint);
-        turn = turn.getOpposite();
         if (isGameOver()) {
-            return Winner.of(turn.getOpposite());
+            return Winner.of(turn);
         }
+        turn = turn.getOpposite();
         return Winner.UNDETERMINED;
     }
 
@@ -86,7 +86,7 @@ public class ChessBoard {
     }
 
     public boolean isGameOver() {
-        return pieces.isCheckmate(this.turn);
+        return pieces.isCheckmate(this.turn) || pieces.hasNotKing(this.turn.getOpposite());
     }
 
     public static ChessBoard createDefaultBoard() {
