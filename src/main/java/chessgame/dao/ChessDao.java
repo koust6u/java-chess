@@ -16,32 +16,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ChessDao {
-    public static final String URL = "jdbc:mysql://localhost:13306/chess";
-    public static final String USER = "user";
-    public static final String PASSWORD = "password";
-
-    private Connection getConnection() {
-        loadDriver();
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
-
-    private void loadDriver() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void saveGame(final ChessBoard chessBoard) {
         final var query = "INSERT INTO chess_game(turn) VALUES(?)";
-        try (final var connection = getConnection();
+        try (final var connection = ServiceConnector.getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, chessBoard.getTurn().name().toLowerCase());
             preparedStatement.execute();
@@ -58,7 +36,7 @@ public class ChessDao {
 
     private void savePiece(final Piece piece, final int chessGameId) {
         final var query = "INSERT INTO pieces(chess_game_id, file, piece_rank, symbol, color) VALUES(?,?,?,?,?)";
-        try (final var connection = getConnection();
+        try (final var connection = ServiceConnector.getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, chessGameId);
             preparedStatement.setString(2, piece.getPoint().file().name());
@@ -75,7 +53,7 @@ public class ChessDao {
         final var topIndex = findTopIndex();
         final var currentTurn = findCurrentTurn();
         final var query = "SELECT * FROM pieces WHERE chess_game_id = ?";
-        try (final var connection = getConnection();
+        try (final var connection = ServiceConnector.getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, topIndex);
             final var resultSet = preparedStatement.executeQuery();
@@ -88,7 +66,7 @@ public class ChessDao {
     private Color findCurrentTurn() {
         final var topIndex = findTopIndex();
         final var query = "SELECT * FROM chess_game WHERE id = ?";
-        try (final var connection = getConnection();
+        try (final var connection = ServiceConnector.getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, topIndex);
             final var resultSet = preparedStatement.executeQuery();
@@ -114,7 +92,7 @@ public class ChessDao {
 
     private int findTopIndex() {
         final var query = "SELECT id FROM chess_game ORDER BY id DESC LIMIT 1";
-        try (final var connection = getConnection();
+        try (final var connection = ServiceConnector.getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             final var resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -132,8 +110,8 @@ public class ChessDao {
     }
 
     private boolean isFirstGame() {
-        try (final var conn = getConnection();
-             final var preparedStatement = conn.createStatement()) {
+        try (final var connection = ServiceConnector.getConnection();
+             final var preparedStatement = connection.createStatement()) {
             final var sql = "SELECT COUNT(*) FROM chess_game";
             final var rs = preparedStatement.executeQuery(sql);
             rs.next();
