@@ -17,7 +17,6 @@ public class BlackPawn extends Pawn {
         super(point, color);
     }
 
-
     @Override
     protected Set<Movement> getAttackMovements() {
         return Set.of(RIGHT_DOWN, LEFT_DOWN);
@@ -42,6 +41,5 @@ public class BlackPawn extends Pawn {
     protected Piece update(final Point point) {
         return new BlackPawn(point, color);
     }
-
 
 }

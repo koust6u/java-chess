@@ -37,11 +37,9 @@ public class WhitePawn extends Pawn {
         return Rank.TWO;
     }
 
-
     @Override
     protected Piece update(final Point point) {
         return new WhitePawn(point, color);
     }
-
 
 }
