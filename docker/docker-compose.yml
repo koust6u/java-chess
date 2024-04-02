@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0.28
+    container_name: mysql
+    platform: linux/x86_64
+    restart: always
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ROOT_PASSWORD
+      MYSQL_DATABASE: chess
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Asia/Seoul
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/config:/etc/mysql/conf.d
+      - ./init/01-chess_game.sql:/docker-entrypoint-initdb.d/01-chess_game.sql
+      - ./init/02-pieces.sql:/docker-entrypoint-initdb.d/02-pieces.sql

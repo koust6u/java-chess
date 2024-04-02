@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ChessDao {
-    public static final String URL = "jdbc:mysql://localhost:3306/chess";
-    public static final String USER = "username";
+    public static final String URL = "jdbc:mysql://localhost:13306/chess";
+    public static final String USER = "user";
     public static final String PASSWORD = "password";
 
     private Connection getConnection() {
