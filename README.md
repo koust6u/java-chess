@@ -19,6 +19,7 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 turn ENUM('white', 'black')
 );
 
+
 CREATE TABLE pieces (
 id INT AUTO_INCREMENT PRIMARY KEY,
 chess_game_id INT,
@@ -55,6 +56,24 @@ piece_rank INT
 #### 2-3. 출력
 - [x] 승/패 결과를 기물의 색으로 구분하여 출력한다.
 - [x] 현재 점수를 출력한다.
+
+
+#### 3. 도커로 mysql 연결하기
+1. docker/docker-compose.yml 파일 에서 service.db.MY_SQL_ROOT_PASSWORD 에 본인 루트 권한 비멀번호를 입력합니다.
+```
+services:
+  db:
+    ... 생략
+    environment:
+      MYSQL_ROOT_PASSWORD: ROOT_PASSWORD //본인 Root 비밀번호로 수정합니다.
+    ... 생략
+```
+
+
+2. 현재 프로젝트 루트 디렉토리에서 아래 명령어를 입력합니다.
+```
+cd docker;docker compose up -d;
+```
 
 ## 우아한테크코스 코드리뷰
 
