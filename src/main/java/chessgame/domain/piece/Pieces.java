@@ -78,11 +78,15 @@ public class Pieces {
         if (!canRemovable(kingPoint, color)) {
             return false;
         }
-        return findPieceWithPoint(kingPoint)
-                .orElseThrow(IllegalStateException::new)
-                .findLegalMovePoints(this)
+        return getLegalMovePoints(kingPoint)
                 .stream()
                 .allMatch(point -> canRemovable(point, color));
+    }
+
+    private Set<Point> getLegalMovePoints(Point point) {
+        return findPieceWithPoint(point)
+                .orElseThrow(IllegalStateException::new)
+                .findLegalMovePoints(this);
     }
 
     public boolean hasNotKing(final Color color) {
