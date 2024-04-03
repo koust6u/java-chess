@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 import chessgame.view.OutputView;
 
 public class ExceptionHandler {
-
     private ExceptionHandler() {
         throw new UnsupportedOperationException();
     }

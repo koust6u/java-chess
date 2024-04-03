@@ -59,4 +59,5 @@ public abstract class SlidingPiece extends Piece {
                 .filter(point -> !pieces.isTeam(this, point))
                 .collect(Collectors.toSet());
     }
+
 }

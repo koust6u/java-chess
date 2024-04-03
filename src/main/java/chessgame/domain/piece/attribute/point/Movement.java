@@ -35,4 +35,5 @@ public enum Movement {
     int getY() {
         return y;
     }
+
 }

@@ -29,4 +29,5 @@ public class Knight extends JumpingPiece {
     protected Piece update(final Point point) {
         return new Knight(point, color);
     }
+
 }

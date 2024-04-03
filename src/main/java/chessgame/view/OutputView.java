@@ -58,11 +58,11 @@ public class OutputView {
                 .forEach(System.out::println);
     }
 
-    private static String printChessBoardEachLine(final ChessBoard chessBoard,final Rank rank) {
+    private static String printChessBoardEachLine(final ChessBoard chessBoard, final Rank rank) {
         final var sb = new StringBuilder();
         Arrays.stream(File.values())
                 .map(file -> new Point(file, rank))
-                .map(point ->  toUppercase(chessBoard, point, getEachPointText(chessBoard, point)))
+                .map(point -> toUppercase(chessBoard, point, getEachPointText(chessBoard, point)))
                 .forEach(sb::append);
 
         return sb.toString();
@@ -84,4 +84,5 @@ public class OutputView {
         }
         return pieceText.get(pieceWithPoint.get().getScore());
     }
+
 }

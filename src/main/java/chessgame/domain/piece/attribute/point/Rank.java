@@ -11,6 +11,7 @@ public enum Rank {
     SIX(6, 5),
     SEVEN(7, 6),
     EIGHT(8, 7);
+
     private final int value;
     private final int order;
 
@@ -59,4 +60,5 @@ public enum Rank {
     public int getValue() {
         return value;
     }
+
 }

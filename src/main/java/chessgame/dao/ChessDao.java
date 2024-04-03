@@ -50,7 +50,6 @@ public class ChessDao {
         }
     }
 
-
     public static boolean isFirstGame() {
         try (final var connection = JdbcConnector.getConnection();
              final var preparedStatement = connection.createStatement()) {

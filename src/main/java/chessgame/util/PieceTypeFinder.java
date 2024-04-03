@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 public class PieceTypeFinder {
-
     private static final Map<Score, BiFunction<Point, Color, Piece>> symbolToInstance
             = Map.of(
             BISHOP, Bishop::new,
@@ -34,4 +33,5 @@ public class PieceTypeFinder {
     public static Piece toPiece(final Score score, final Point point, final Color color) {
         return symbolToInstance.get(score).apply(point, color);
     }
+
 }

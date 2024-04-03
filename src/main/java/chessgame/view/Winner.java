@@ -32,4 +32,5 @@ public enum Winner {
     public boolean isDetermine() {
         return this != UNDETERMINED;
     }
+
 }

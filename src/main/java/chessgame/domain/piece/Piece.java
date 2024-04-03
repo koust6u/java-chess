@@ -8,9 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public abstract class Piece {
-
     protected Point point;
-
     protected final Color color;
 
     protected Piece(final Point point, final Color color) {

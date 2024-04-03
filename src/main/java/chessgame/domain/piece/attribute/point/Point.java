@@ -68,7 +68,6 @@ public record Point(File file, Rank rank) {
         return file.canMoveLeft(step);
     }
 
-
     public boolean canMoveRight(final int step) {
         return file.canMoveRight(step);
     }
@@ -123,4 +122,5 @@ public record Point(File file, Rank rank) {
     public int hashCode() {
         return Objects.hash(file, rank);
     }
+
 }

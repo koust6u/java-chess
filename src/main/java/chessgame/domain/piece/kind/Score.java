@@ -32,4 +32,5 @@ public enum Score {
     public String getSymbol() {
         return symbol;
     }
+
 }

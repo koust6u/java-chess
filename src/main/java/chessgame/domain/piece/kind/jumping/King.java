@@ -31,4 +31,5 @@ public class King extends JumpingPiece {
     public boolean isKing() {
         return true;
     }
+
 }

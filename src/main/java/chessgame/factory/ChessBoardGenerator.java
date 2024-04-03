@@ -51,4 +51,5 @@ public class ChessBoardGenerator {
                 new King(new Point(File.E, rank), color), new Bishop(new Point(File.F, rank), color),
                 new Knight(new Point(File.G, rank), color), new Rook(new Point(File.H, rank), color));
     }
+
 }

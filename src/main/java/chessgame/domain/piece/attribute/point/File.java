@@ -11,6 +11,7 @@ public enum File {
     F('f', 5),
     G('g', 6),
     H('h', 7);
+
     private final char value;
     private final int order;
 
@@ -26,7 +27,6 @@ public enum File {
                 .orElseThrow(() -> new IllegalArgumentException(String.format("%c는 파일에 존재하지 않습니다.", value)));
     }
 
-
     public static File from(final String value) {
         final var charValue = value.toLowerCase().charAt(0);
         return Arrays.stream(values())
@@ -34,6 +34,7 @@ public enum File {
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("%s는 파일에 존재하지 않습니다.", value)));
     }
+
     public boolean isFarLeft() {
         return order == 0;
     }

@@ -9,7 +9,6 @@ import chessgame.domain.piece.Piece;
 import java.util.Set;
 
 public class Rook extends SlidingPiece {
-
     public Rook(final Point point, final Color color) {
         super(point, color);
     }
