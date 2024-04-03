@@ -18,13 +18,6 @@ public enum Score {
         this.value = score;
     }
 
-    public static Score from(final String value) {
-        return Arrays.stream(values())
-                .filter(score -> score.getSymbol().equals(value))
-                .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("없는 심볼 정보입니다."));
-    }
-
     public double getValue() {
         return value;
     }

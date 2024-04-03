@@ -10,6 +10,7 @@ import chessgame.domain.piece.attribute.point.Rank;
 import chessgame.domain.piece.kind.Score;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,11 +56,18 @@ public class PiecesDao {
             final var file = File.from(resultSet.getString("file"));
             final var rank = Rank.from(resultSet.getInt("piece_rank"));
             final var color = Color.from(resultSet.getString("color"));
-            final var symbol = Score.from(resultSet.getString("symbol"));
+            final var symbol = createScore(resultSet.getString("symbol"));
             final var generatedPiece = Piece.from(symbol, new Point(file, rank), color);
             pieceSet.add(generatedPiece);
         }
         return pieceSet;
+    }
+
+    public static Score createScore(final String value) {
+        return Arrays.stream(Score.values())
+                .filter(score -> score.getSymbol().equals(value))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("없는 심볼 정보입니다."));
     }
 
 }
