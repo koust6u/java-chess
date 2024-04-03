@@ -8,6 +8,7 @@ import chessgame.domain.piece.attribute.point.File;
 import chessgame.domain.piece.attribute.point.Point;
 import chessgame.domain.piece.attribute.point.Rank;
 import chessgame.domain.piece.kind.Score;
+import chessgame.util.PieceTypeFinder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -56,11 +57,9 @@ public class PiecesDao {
             final var rank = Rank.from(resultSet.getInt("piece_rank"));
             final var color = Color.from(resultSet.getString("color"));
             final var symbol = Score.from(resultSet.getString("symbol"));
-            final var generatedPiece = Piece.from(symbol, new Point(file, rank), color);
+            final var generatedPiece = PieceTypeFinder.toPiece(symbol, new Point(file, rank), color);
             pieceSet.add(generatedPiece);
         }
         return pieceSet;
     }
-
-
 }
