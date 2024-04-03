@@ -89,7 +89,7 @@ public class Pieces {
         return this.values.stream()
                 .filter(piece -> piece.isSameColor(color))
                 .filter(this::isKing)
-                .findFirst()
+                .findAny()
                 .isEmpty();
     }
 
@@ -104,7 +104,7 @@ public class Pieces {
         return values.stream()
                 .filter(piece -> piece.isSameColor(color))
                 .filter(this::isKing)
-                .findFirst()
+                .findAny()
                 .map(piece -> piece.point)
                 .orElseThrow(IllegalStateException::new);
     }

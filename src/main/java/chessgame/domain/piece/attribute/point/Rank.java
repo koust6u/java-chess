@@ -22,7 +22,7 @@ public enum Rank {
     public static Rank from(final int value) {
         return Arrays.stream(values())
                 .filter(rank -> rank.value == value)
-                .findFirst()
+                .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("%d는 랭크에 존재하지 않습니다.", value)));
     }
 

@@ -21,7 +21,7 @@ public enum Score {
     public static Score from(final String value) {
         return Arrays.stream(values())
                 .filter(score -> score.getSymbol().equals(value))
-                .findFirst()
+                .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("없는 심볼 정보입니다."));
     }
 

@@ -22,7 +22,7 @@ public enum File {
     public static File from(final char value) {
         return Arrays.stream(values())
                 .filter(file -> file.value == value)
-                .findFirst()
+                .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("%c는 파일에 존재하지 않습니다.", value)));
     }
 
@@ -31,7 +31,7 @@ public enum File {
         final var charValue = value.toLowerCase().charAt(0);
         return Arrays.stream(values())
                 .filter(file -> file.value == charValue)
-                .findFirst()
+                .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("%s는 파일에 존재하지 않습니다.", value)));
     }
     public boolean isFarLeft() {

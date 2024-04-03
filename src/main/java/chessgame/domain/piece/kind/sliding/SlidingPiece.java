@@ -42,7 +42,7 @@ public abstract class SlidingPiece extends Piece {
         return Stream.iterate(point, point -> point.canMove(direction), point -> point.move(direction))
                 .filter(point -> !point.equals(this.point))
                 .filter(pieces::hasPiece)
-                .findFirst()
+                .findAny()
                 .orElse(findEndPoint(direction));
     }
 
