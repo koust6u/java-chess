@@ -29,4 +29,7 @@ public enum Winner {
         return DRAW == this;
     }
 
+    public boolean isDetermine() {
+        return this != UNDETERMINED;
+    }
 }

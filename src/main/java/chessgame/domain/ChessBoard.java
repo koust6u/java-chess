@@ -86,7 +86,7 @@ public class ChessBoard {
     }
 
     public boolean isGameOver() {
-        return pieces.isCheckmate(this.turn.getOpposite()) || pieces.hasNotKing(this.turn.getOpposite());
+        return pieces.hasNotKing(this.turn.getOpposite()) || pieces.isCheckmate(this.turn.getOpposite());
     }
 
     public static ChessBoard createDefaultBoard() {

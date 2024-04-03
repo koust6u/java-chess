@@ -9,6 +9,7 @@ import chessgame.dto.RouteDto;
 import chessgame.view.InputView;
 import chessgame.view.ChessCommand;
 import chessgame.view.OutputView;
+import chessgame.view.Winner;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -46,7 +47,10 @@ public class ChessGame {
     }
 
     private ChessBoard move(final ChessBoard chessBoard) {
-        chessBoard.move(askRoute());
+        Winner winner = chessBoard.move(askRoute());
+        if (winner.isDetermine()) {
+            getGameResult(chessBoard);
+        }
         return chessBoard;
     }
 
@@ -65,13 +69,7 @@ public class ChessGame {
         return chessBoard;
     }
 
-    public RouteDto askRoute() {
-        final var source = InputView.inputChessPoint();
-        final var destination = InputView.inputChessPoint();
-        return new RouteDto(source, destination);
-    }
-
-    public ChessBoard getGameResult(final ChessBoard chessBoard) {
+    private ChessBoard getGameResult(final ChessBoard chessBoard) {
         final var whiteScore = chessBoard.findTotalScore(Color.WHITE);
         final var blackScore = chessBoard.findTotalScore(Color.BLACK);
         final var winner = chessBoard.findWinner();
@@ -80,6 +78,12 @@ public class ChessGame {
         System.exit(0);
 
         return chessBoard;
+    }
+
+    private RouteDto askRoute() {
+        final var source = InputView.inputChessPoint();
+        final var destination = InputView.inputChessPoint();
+        return new RouteDto(source, destination);
     }
 
 }
