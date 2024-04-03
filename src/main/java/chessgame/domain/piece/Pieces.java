@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public class Pieces {
     private final Set<Piece> values;
@@ -133,8 +132,8 @@ public class Pieces {
         return this.values.isEmpty();
     }
 
-    public Stream<Piece> stream() {
-        return this.values.stream();
+    public Set<Piece> getValues() {
+        return Collections.unmodifiableSet(this.values);
     }
 
 }
