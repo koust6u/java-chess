@@ -83,9 +83,10 @@ public class Pieces {
     }
 
     private Set<Point> getLegalMovePoints(Point point) {
-        return findPieceWithPoint(point)
-                .orElseThrow(IllegalStateException::new)
-                .findLegalMovePoints(this);
+        final var piece = findPieceWithPoint(point)
+                .orElseThrow(IllegalStateException::new);
+
+        return piece.findLegalMovePoints(this);
     }
 
     public boolean hasNotKing(final Color color) {
