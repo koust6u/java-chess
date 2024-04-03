@@ -17,7 +17,7 @@ public class PiecesDao {
 
     public static void savePieces(final ChessBoard chessBoard) {
         final var topIndex = ChessDao.findTopIndex();
-        chessBoard.getPieces().stream()
+        chessBoard.getPieces().getValues()
                 .forEach(piece -> savePiece(piece, topIndex));
     }
 
@@ -43,7 +43,6 @@ public class PiecesDao {
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, topIndex);
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
             return new ChessBoard(new Pieces(generatePieces(resultSet)), ChessDao.findCurrentTurn());
         } catch (SQLException e) {
             throw new RuntimeException("게임 불러오기에 실패했습니다.");
