@@ -47,6 +47,14 @@ public abstract class Piece {
 
     public abstract Score getScore();
 
+    public boolean isKing() {
+        return false;
+    }
+
+    public boolean isPawn() {
+        return false;
+    }
+
     public Piece move(final Point destination) {
         validateSamePoint(destination);
         return update(destination);

@@ -78,6 +78,11 @@ public abstract class Pawn extends Piece {
     }
 
     @Override
+    public boolean isPawn() {
+        return true;
+    }
+
+    @Override
     public Score getScore() {
         return Score.PAWN;
     }

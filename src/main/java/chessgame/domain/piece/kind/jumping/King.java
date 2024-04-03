@@ -27,4 +27,8 @@ public class King extends JumpingPiece {
         return new King(point, color);
     }
 
+    @Override
+    public boolean isKing() {
+        return true;
+    }
 }

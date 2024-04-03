@@ -2,7 +2,6 @@ package chessgame.domain.piece;
 
 import chessgame.domain.piece.attribute.Color;
 import chessgame.domain.piece.attribute.point.Point;
-import chessgame.domain.piece.kind.jumping.King;
 import chessgame.domain.piece.kind.pawn.Pawn;
 
 import java.util.Collections;
@@ -114,7 +113,7 @@ public class Pieces {
     }
 
     public boolean isKing(Piece piece) {
-        return piece instanceof King;
+        return piece.isKing();
     }
 
     public boolean isTeam(final Piece piece, final Point point) {
