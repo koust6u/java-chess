@@ -15,7 +15,7 @@ public class ServiceConnector {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("데이터베이스에 접근이 불가능합니다.");
         }
         return connection;
     }
@@ -24,7 +24,7 @@ public class ServiceConnector {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (final Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("데이터베이스에 접근이 불가능합니다.");
         }
     }
 
