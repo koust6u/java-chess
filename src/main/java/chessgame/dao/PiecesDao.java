@@ -24,7 +24,7 @@ public class PiecesDao {
 
     private static void savePiece(final Piece piece, final int chessGameId) {
         final var query = "INSERT INTO pieces(chess_game_id, file, piece_rank, symbol, color) VALUES(?,?,?,?,?)";
-        try (final var connection = ServiceConnector.getConnection();
+        try (final var connection = JdbcConnector.getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, chessGameId);
             preparedStatement.setString(2, piece.getPoint().file().name());
@@ -40,7 +40,7 @@ public class PiecesDao {
     public static ChessBoard findCurrentChessBoard() {
         int topIndex = ChessDao.findTopIndex();
         String query = "SELECT * FROM pieces WHERE chess_game_id = ?";
-        try (final var connection = ServiceConnector.getConnection();
+        try (final var connection = JdbcConnector.getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, topIndex);
             ResultSet resultSet = preparedStatement.executeQuery();
