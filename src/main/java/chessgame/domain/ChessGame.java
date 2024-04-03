@@ -3,6 +3,7 @@ package chessgame.domain;
 import static chessgame.view.ChessCommand.*;
 
 import chessgame.dao.ChessDao;
+import chessgame.dao.PiecesDao;
 import chessgame.domain.piece.attribute.Color;
 import chessgame.dto.RouteDto;
 import chessgame.view.InputView;
@@ -41,7 +42,7 @@ public class ChessGame {
 
     private ChessBoard start(final ChessBoard chessBoard) {
         chessDao.configuration();
-        return chessDao.findCurrentChessBoard();
+        return PiecesDao.findCurrentChessBoard();
     }
 
     private ChessBoard move(final ChessBoard chessBoard) {
@@ -50,8 +51,8 @@ public class ChessGame {
     }
 
     private ChessBoard finish(final ChessBoard chessBoard) {
-        chessDao.saveGame(chessBoard);
-        chessDao.savePieces(chessBoard);
+        ChessDao.saveGame(chessBoard);
+        PiecesDao.savePieces(chessBoard);
         System.exit(0);
 
         return chessBoard;
@@ -59,8 +60,8 @@ public class ChessGame {
 
     private ChessBoard resetGame(final ChessBoard chessBoard) {
         chessBoard.reset();
-        chessDao.saveGame(chessBoard);
-        chessDao.savePieces(chessBoard);
+        ChessDao.saveGame(chessBoard);
+        PiecesDao.savePieces(chessBoard);
         return chessBoard;
     }
 

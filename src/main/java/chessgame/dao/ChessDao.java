@@ -43,6 +43,13 @@ public class ChessDao {
         }
     }
 
+    public void configuration() {
+        if (isFirstGame()) {
+            saveGame(ChessBoard.createDefaultBoard());
+            PiecesDao.savePieces(ChessBoard.createDefaultBoard());
+        }
+    }
+
 
     public static boolean isFirstGame() {
         try (final var connection = ServiceConnector.getConnection();
